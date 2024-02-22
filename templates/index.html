@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Posture Classification</title>
+</head>
+<body>
+    <h1>Test Classification</h1>
+    <p id="posture"></p>
+
+    <script>
+        function updatePosture() {
+            fetch('/posture', {
+                method: 'POST'
+            })
+            .then(response => response.text())
+            .then(posture => {
+                document.getElementById('posture').innerText = 'Posture: ' + posture;
+            });
+        }
+
+        setInterval(updatePosture, 1000);
+    </script>
+</body>
+</html>
