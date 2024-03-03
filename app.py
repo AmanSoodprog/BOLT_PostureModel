@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import cv2
 import numpy as np
 import pymongo
+from flask_cors import CORS
 import mediapipe_utils as mp_utils
 from landmarks import draw_landmarks
 import time
@@ -13,6 +14,11 @@ client = pymongo.MongoClient(host)
 db = client['Posture_Data']
 
 app = Flask(__name__)
+
+
+
+
+CORS(app)
 
 
 
