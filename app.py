@@ -12,7 +12,8 @@ host = "mongodb+srv://Pixel:Pixel7788@cluster0.3dpfxx3.mongodb.net/mydb?retryWri
 client = pymongo.MongoClient(host)
 db = client['Posture_Data']
 
-app = Flask(__name__)
+app = Flask(__name__, host='0.0.0.0')
+
 
 
 
@@ -71,4 +72,5 @@ def posture():
     return "No posture detected"
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5050)
+    app.run(debug=True, host='0.0.0.0')
+
