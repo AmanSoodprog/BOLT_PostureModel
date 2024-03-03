@@ -24,6 +24,7 @@
                         data: { image: dataURL },
                         success: function(response) {
                             console.log(response);
+                            $('#postureValue').text('Posture: ' + response.posture);
                         }
                     });
                 }, 1000); // Send frames every second
@@ -39,5 +40,6 @@
     <br>
     <video id="video" width="640" height="480" autoplay></video>
     <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <div id="postureValue"></div>
 </body>
 </html>

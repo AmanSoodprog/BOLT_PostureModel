@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import cv2
 import numpy as np
 import pymongo
 import mediapipe_utils as mp_utils
 from landmarks import draw_landmarks
 import time
+
 import base64
 
 host = "mongodb+srv://Pixel:Pixel7788@cluster0.3dpfxx3.mongodb.net/mydb?retryWrites=true&w=majority"
@@ -37,7 +38,7 @@ def posture():
         return "Error reading frame"
     
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    print("HI")
+
     results = mp_utils.pose.process(frame_rgb)
 
     frame_with_landmarks, eye_landmarks, shoulder_landmarks = draw_landmarks(frame, results)
@@ -64,6 +65,7 @@ def posture():
         #     print(calmness)
         #     return posture
         print(posture)
+        return jsonify({'posture': posture})
     else:
         return "Error reading frame"  
     return "No posture detected"
