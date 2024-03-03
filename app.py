@@ -12,7 +12,7 @@ host = "mongodb+srv://Pixel:Pixel7788@cluster0.3dpfxx3.mongodb.net/mydb?retryWri
 client = pymongo.MongoClient(host)
 db = client['Posture_Data']
 
-app = Flask(__name__, host='0.0.0.0')
+app = Flask(__name__)
 
 
 
