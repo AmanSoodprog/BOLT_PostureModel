@@ -10,17 +10,16 @@ host = "mongodb+srv://Pixel:Pixel7788@cluster0.3dpfxx3.mongodb.net/mydb?retryWri
 client = pymongo.MongoClient(host)
 db = client['Posture_Data']
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 cap = cv2.VideoCapture(0)
 
-
-
-@app.route('/')
+@application.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/posture', methods=['POST'])
+
+@application.route('/posture', methods=['POST'])
 def posture():
     ret, frame = cap.read()
 
@@ -51,26 +50,15 @@ def posture():
                 calmness="Agitated"
             else:
                 calmness="Calm"
-            # set={
-            #     "posture":posture,
-            #     "calmness":calmness
-            # }
             print(posture)
             print(calmness)
             return posture
         else:
             return "Error reading frame"
         
-        # query1={
-        #     "Posture: ":posture
-        # }
-        query2={
-             "Calmness: ":calmness
-        }
-        # db['state'].insert_one(query1)
-        return calmness
+     
 
     return "No posture detected"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True, port=5050)

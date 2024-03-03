@@ -13,7 +13,6 @@ def draw_landmarks(frame, results):
         left_shoulder_landmark = results.pose_landmarks.landmark[mp_utils.mp_pose.PoseLandmark.LEFT_SHOULDER]
         right_shoulder_landmark = results.pose_landmarks.landmark[mp_utils.mp_pose.PoseLandmark.RIGHT_SHOULDER]
 
-
         eye_landmarks = np.array([[left_eye_landmark.x, left_eye_landmark.y],
                                   [right_eye_landmark.x, right_eye_landmark.y]])
         shoulder_landmarks = np.array([[left_shoulder_landmark.x, left_shoulder_landmark.y],
