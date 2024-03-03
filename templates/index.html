@@ -1,24 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Posture Classification</title>
-</head>
-<body>
-    <h1>Test Classification</h1>
-    <p id="posture"></p>
-
+    <title>Posture Detection</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        function updatePosture() {
-            fetch('/posture', {
-                method: 'POST'
+        // Function to start the webcam feed and send frames to Flask server
+        function startWebcam() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                var video = document.getElementById('video');
+                video.srcObject = stream;
+                video.play();
+
+                var canvas = document.getElementById('canvas');
+                var context = canvas.getContext('2d');
+
+                setInterval(function() {
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    var dataURL = canvas.toDataURL('image/jpeg', 1);
+                    $.ajax({
+                        type: 'POST',
+                        url: '/posture',
+                        data: { image: dataURL },
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+                }, 1000); // Send frames every second
             })
-            .then(response => response.text())
-            .then(posture => {
-                document.getElementById('posture').innerText = 'Posture: ' + posture;
+            .catch(function(err) {
+                console.error('Error accessing webcam: ', err);
             });
         }
-
-        setInterval(updatePosture, 1000);
     </script>
+</head>
+<body>
+    <button onclick="startWebcam()">Start Webcam</button>
+    <br>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
 </body>
 </html>
