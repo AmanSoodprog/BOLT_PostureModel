@@ -8,6 +8,7 @@ flask = "*"
 opencv-python = "*"
 pymongo = "*"
 mediapipe = "*"
+gunicorn = "*"
 
 [dev-packages]
 
